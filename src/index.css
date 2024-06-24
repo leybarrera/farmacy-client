@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root,
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-image: url("/public/pasillo.webp");
+  background-size: cover;
+  background-position: center;
+}
