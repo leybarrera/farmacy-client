@@ -1,4 +1,57 @@
+import { useState } from "react";
+import { messageEndpoint } from "../../api/message.api";
+import Swal from "sweetalert2";
+
 const Contacto = () => {
+  const initialState = {
+    nombre: "",
+    email: "",
+    mensaje: "",
+  };
+  const [message, setMessage] = useState(initialState);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMessage({
+      ...message,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!Object.values(message).some((current) => current == "")) {
+      try {
+        messageEndpoint
+          .sendMessage(message)
+          .then(() => {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Mensaje enviado",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            setMessage(initialState);
+          })
+          .catch(console.log);
+      } catch (error) {
+        Swal.fire({
+          title: "¡Error!",
+          text: error.response.data.message,
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      }
+    } else {
+      Swal.fire({
+        title: "¡Error!",
+        text: "Todos los campos son obligatorios",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    }
+  };
   return (
     <section className="py-10 w-3/5 mx-auto flex flex-col gap-5 items-center border border-white rounded-lg mt-4 bg-opacity-80 bg-dark">
       <div className="relative w-52 h-52 rounded-full overflow-hidden">
@@ -13,15 +66,21 @@ const Contacto = () => {
           Información de Contacto
         </h3>
 
-        <form action="" className="w-full flex flex-col gap-3">
+        <form
+          action=""
+          className="w-full flex flex-col gap-3"
+          onSubmit={handleSubmit}
+        >
           <div className="flex flex-col gap-1">
             <label htmlFor="" className="text-lg font-bold">
               Nombre Completo
             </label>
             <input
               type="text"
-              name=""
-              id=""
+              name="nombre"
+              id="nombre"
+              value={message.nombre}
+              onChange={handleChange}
               className="px-2 py-3 border border-gray-500/30 outline-none focus:border-gray-500/50 rounded-lg"
             />
           </div>
@@ -31,8 +90,10 @@ const Contacto = () => {
             </label>
             <input
               type="email"
-              name=""
-              id=""
+              name="email"
+              id="email"
+              value={message.email}
+              onChange={handleChange}
               className="px-2 py-3 border border-gray-500/30 outline-none focus:border-gray-500/50 rounded-lg"
             />
           </div>
@@ -41,8 +102,10 @@ const Contacto = () => {
               Mensaje
             </label>
             <textarea
-              name=""
-              id=""
+              name="mensaje"
+              id="mensaje"
+              onChange={handleChange}
+              value={message.mensaje}
               className="resize-none px-2 py-3 border border-gray-500/30 outline-none focus:border-gray-500/50 rounded-lg h-52"
             ></textarea>
           </div>

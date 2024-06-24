@@ -4,6 +4,17 @@ export const categories = [
     name: "Medicamentos de Venta Libre",
     poster:
       "https://www.manipuladosviluz.es/wp-content/uploads/2023/09/tipos-de-medicamentos-OTC.jpg",
+    products: [
+      {
+        id: crypto.randomUUID(),
+        name: "Paracetamol",
+        price: 10.0,
+        description:
+          "El paracetamol es un medicamento ampliamente utilizado para aliviar el dolor y reducir la fiebre. Se utiliza comúnmente para tratar dolores de cabeza, dolor muscular, artritis, dolor de espalda, dolores de muelas, resfriados y fiebres. Es conocido por su eficacia y perfil de seguridad cuando se usa según las indicaciones.",
+        poster:
+          "https://images.ecestaticos.com/2OFO72FGrUW2USgjzNyAXE-13_I=/0x143:3974x2379/1338x752/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F742%2F69a%2Fccf%2F74269accf14f3a89df5f365ad6d3f16c.jpg",
+      },
+    ],
   },
   {
     id: crypto.randomUUID(),
