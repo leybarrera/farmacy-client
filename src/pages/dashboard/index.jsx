@@ -1,6 +1,13 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import storageUtils from "../../utils/storage.utils";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const closeSession = () => {
+    storageUtils.deleteData("usuario");
+    navigate("/");
+  };
   return (
     <main className="flex flex-col w-full">
       <nav className="w-full h-20 flex items-center justify-between px-10 bg-[#333333]">
@@ -45,7 +52,9 @@ const Dashboard = () => {
               className="absolute w-full h-full object-cover"
             />
           </div>
-          <button className="text-white">Cerrar sesión</button>
+          <button className="text-white" onClick={closeSession}>
+            Cerrar sesión
+          </button>
         </div>
       </nav>
       <Outlet />
