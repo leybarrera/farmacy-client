@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { FaEdit, FaEye, FaEyeSlash, FaPlus, FaTrash } from "react-icons/fa";
+import {
+  FaEdit,
+  FaEye,
+  FaEyeSlash,
+  FaPlus,
+  FaTrash,
+  FaTrashRestore,
+} from "react-icons/fa";
 import { usuarioEndpoints } from "../../../api/usuarios.api";
 import Swal from "sweetalert2";
 
@@ -16,17 +23,27 @@ const Usuarios = () => {
 
   const [user, setUser] = useState(initialState);
   const [users, setUsers] = useState([]);
-
   const [showPasword, setShowPassword] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [showUsersDeleted, setShowUsersDeleted] = useState(false);
 
   const togglePassword = () => setShowPassword(!showPasword);
   const toggleRegister = () => setShowRegister(!showRegister);
   const fetchUsers = () => {
+    setShowUsersDeleted(false);
     usuarioEndpoints
       .getAllUsuarios()
       .then((res) => {
         setUsers(res.data.usuarios);
+      })
+      .catch(console.log);
+  };
+  const fetchDeletedUsers = () => {
+    usuarioEndpoints
+      .getDeletedUsuarios()
+      .then((res) => {
+        setUsers(res.data.usuarios);
+        setShowUsersDeleted(true);
       })
       .catch(console.log);
   };
@@ -102,6 +119,14 @@ const Usuarios = () => {
           .catch(console.log);
       }
     });
+  };
+  const recoveryUser = (id) => {
+    usuarioEndpoints
+      .recuperar(id)
+      .then(() => {
+        fetchUsers();
+      })
+      .catch(console.log);
   };
 
   useEffect(() => {
@@ -270,7 +295,14 @@ const Usuarios = () => {
           </div>
         ) : (
           <div className="w-full ">
-            <div className="flex justify-end">
+            <div className="flex justify-between">
+              <button
+                className="flex items-center gap-2 px-5 py-2 bg-orange-900 text-white mb-3 rounded-lg"
+                onClick={showUsersDeleted ? fetchUsers : fetchDeletedUsers}
+              >
+                {showUsersDeleted ? <FaEyeSlash /> : <FaEye />}
+                {showUsersDeleted ? "Ocultar" : "Ver"} usuarios eliminados
+              </button>
               <button
                 className="flex items-center gap-2 px-5 py-2 bg-green-700 text-white mb-3 rounded-lg"
                 onClick={toggleRegister}
@@ -322,14 +354,23 @@ const Usuarios = () => {
                         {currentUser.fecha_nacimiento}
                       </td>
                       <td className="px-6 py-4 flex items-center gap-2">
-                        <button className="px-3 py-2 border bg-yellow-600 text-white border-yellow-600 rounded-lg">
+                        <button
+                          className={`px-3 py-2 border bg-yellow-600 text-white border-yellow-600 rounded-lg ${
+                            showUsersDeleted ? "hidden" : "block"
+                          }`}
+                        >
                           <FaEdit />
                         </button>
+
                         <button
                           className="px-3 py-2 border bg-red-600 text-white border-red-600 rounded-lg"
-                          onClick={() => deleteUser(currentUser.id)}
+                          onClick={() =>
+                            showUsersDeleted
+                              ? recoveryUser(currentUser.id)
+                              : deleteUser(currentUser.id)
+                          }
                         >
-                          <FaTrash />
+                          {showUsersDeleted ? <FaTrashRestore /> : <FaTrash />}
                         </button>
                       </td>
                     </tr>

@@ -6,6 +6,10 @@ export const usuarioEndpoints = {
     return instance.get(`${model}`);
   },
 
+  getDeletedUsuarios: () => {
+    return instance.get(`${model}/all`);
+  },
+
   login: (credentials) => {
     return instance.post(`${model}/login`, { ...credentials });
   },
@@ -16,5 +20,9 @@ export const usuarioEndpoints = {
 
   borrar: (id) => {
     return instance.delete(`${model}/delete/${id}`);
+  },
+
+  recuperar: (id) => {
+    return instance.patch(`${model}/recovery/${id}`);
   },
 };

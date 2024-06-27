@@ -3,7 +3,7 @@ import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { productoEndpoints } from "../../../api/productos.api";
 import Swal from "sweetalert2";
 import { categoriaEndpoints } from "../../../api/categorias.api";
-
+import { categories } from "../../../mocks/data";
 const Productos = () => {
   const initialState = {
     nombre: "",
@@ -19,20 +19,26 @@ const Productos = () => {
   const toggleRegister = () => setShowRegister(!showRegister);
 
   const fetchCategorias = () => {
-    categoriaEndpoints
-      .getAllCategorias()
-      .then((res) => {
-        setCategorias(res.data.categorias);
-      })
-      .catch(console.log);
+    setCategorias(categories);
   };
   const fetchProductos = () => {
-    productoEndpoints
-      .getAllProductos()
-      .then((res) => {
-        setProductos(res.data.productos);
-      })
-      .catch(console.log);
+    const productsDB = [];
+    for (let category of categories) {
+      const { products } = category;
+      if (products && products.length > 0) {
+        for (let product of products) {
+          productsDB.push({
+            id: product.id,
+            nombre: product.name,
+            precio: product.price,
+            CategoryId: category.id,
+            imagen: product.poster,
+          });
+        }
+      }
+    }
+
+    setProductos(productsDB);
   };
 
   const handleChange = (e) => {
@@ -110,8 +116,8 @@ const Productos = () => {
   };
 
   const getNombreCategoria = (id) => {
-    const foundCategoria = categorias.find((current) => current.id == id);
-    return foundCategoria.nombre;
+    const foundCategoria = categories.find((current) => current.id == id);
+    return foundCategoria.name;
   };
 
   useEffect(() => {

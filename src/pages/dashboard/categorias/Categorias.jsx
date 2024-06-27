@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { categoriaEndpoints } from "../../../api/categorias.api";
 import Swal from "sweetalert2";
-
+import { categories } from "../../../mocks/data";
 const Categorias = () => {
   const initialState = {
     nombre: "",
@@ -14,12 +14,12 @@ const Categorias = () => {
   const toggleRegister = () => setShowRegister(!showRegister);
 
   const fetchCategorias = () => {
-    categoriaEndpoints
-      .getAllCategorias()
-      .then((res) => {
-        setCategorias(res.data.categorias);
-      })
-      .catch(console.log);
+    const categoriesMap = categories.map((category) => ({
+      id: category.id,
+      nombre: category.name,
+      imagen: category.poster,
+    }));
+    setCategorias(categoriesMap);
   };
 
   const handleChange = (e) => {

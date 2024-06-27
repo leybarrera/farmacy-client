@@ -46,7 +46,7 @@ const Cart = ({ showCart, toggleCart }) => {
     <aside
       className={`fixed top-0 ${
         showCart ? "right-0" : "-right-full"
-      } h-full w-[20vw] z-50 bg-primary transition-all duration-300`}
+      } h-full w-[20vw] z-50 bg-primary transition-all duration-300 overflow-y-scroll pb-10`}
     >
       <button
         className="absolute top-3 right-3 text-white text-xl"

@@ -21,12 +21,34 @@ export const categories = [
     name: "Medicamentos bajo receta médica",
     poster:
       "https://media.istockphoto.com/id/139520608/es/foto/doctor-escribir-salida-rx-receta.jpg?s=612x612&w=0&k=20&c=EGr-Rf-E4YYabaosKtWPYezCEaLfhYlIIaHK5fCKJsM=",
+    products: [
+      {
+        id: crypto.randomUUID(),
+        name: "Tramadol en gotas",
+        price: 6.0,
+        description:
+          "El Tramadol es un analgésico opioide de acción central. Es un antagonista puro no selectivo en los receptores de opioides µ, δ y κ con una afinidad mayor para el receptor, por lo que es un medicamento utilizado para el tratamiento de dolor de intensidad moderada a severa y tiene un efecto antitusivo..",
+        poster:
+          "https://www.adiuvopharma.com/wp-content/uploads/2018/06/DGP_0768.jpg",
+      },
+    ],
   },
   {
     id: crypto.randomUUID(),
     name: "Medicamentos controlados",
     poster:
       "https://i.ytimg.com/vi/Kn8K7dPlP9g/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAIDctJPS-6uJ16mHyAZcVfai2IGA",
+    products: [
+      {
+        id: crypto.randomUUID(),
+        name: "Clorhidrato de Morfina",
+        price: 20.0,
+        description:
+          "Los analgésicos opioides pueden disminuir la capacidad mental y/o física necesaria para realizar tareas potencialmente peligrosas (p.ej. conducir un coche o utilizar máquinas), especialmente al inicio del tratamiento, tras un aumento de la dosis o tras un cambio de formulación, y/o al administrarlo conjuntamente con otros medicamentos. Se debe advertir a los pacientes que no conduzcan ni utilicen máquinas si sienten somnolencia, mareo o alteraciones visuales mientras toman morfina, o hasta que se compruebe que la capacidad para realizar estas actividades no queda afectada.",
+        poster:
+          "https://rospaw.com/wp-content/uploads/2023/03/GNO-1024x683.jpg",
+      },
+    ],
   },
   {
     id: crypto.randomUUID(),
