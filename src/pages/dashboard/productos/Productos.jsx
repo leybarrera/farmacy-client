@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { productoEndpoints } from "../../../api/productos.api";
 import Swal from "sweetalert2";
-import { categoriaEndpoints } from "../../../api/categorias.api";
 import { categories } from "../../../mocks/data";
 const Productos = () => {
   const initialState = {
