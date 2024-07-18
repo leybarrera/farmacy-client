@@ -1,7 +1,21 @@
 import { TbShoppingCartPlus } from 'react-icons/tb';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import storageUtils from '../../../utils/storage.utils';
 
 const Product = ({ product, addItemToCart }) => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const isLogged = () => {
+    const usuario = storageUtils.getData('usuario');
+    if (usuario) {
+      setIsAdmin(usuario.rol === 'admin');
+    }
+  };
+
+  useEffect(() => {
+    isLogged();
+  }, []);
   return (
     <article
       className="relative border border-gray-500/20 rounded-lg overflow-hidden bg-white cursor-pointer hover:-translate-y-2 transition-all duration-300 pb-10"
@@ -26,13 +40,15 @@ const Product = ({ product, addItemToCart }) => {
         </div>
         <h5>{product.descripcion}</h5>
 
-        <button
-          className="flex items-center py-3 justify-center bg-blue-800 text-white gap-2 rounded-lg"
-          onClick={() => addItemToCart(product)}
-        >
-          <TbShoppingCartPlus size={20} />
-          Añadir al carrito
-        </button>
+        {!isAdmin && (
+          <button
+            className="flex items-center py-3 justify-center bg-blue-800 text-white gap-2 rounded-lg"
+            onClick={() => addItemToCart(product)}
+          >
+            <TbShoppingCartPlus size={20} />
+            Añadir al carrito
+          </button>
+        )}
       </div>
     </article>
   );

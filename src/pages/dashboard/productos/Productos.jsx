@@ -10,6 +10,7 @@ const Productos = () => {
     nombre: '',
     precio: '',
     imagen: '',
+    descripcion: '',
     CategoryId: '',
   };
   const [showRegister, setShowRegister] = useState(false);
@@ -77,7 +78,14 @@ const Productos = () => {
             fetchProductos();
             toggleRegister();
           })
-          .catch(console.log);
+          .catch((err) => {
+            Swal.fire({
+              title: '¡Error!',
+              text: err.response.data.message,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+            });
+          });
       } catch (error) {
         Swal.fire({
           title: '¡Error!',
@@ -118,7 +126,14 @@ const Productos = () => {
 
             fetchProductos();
           })
-          .catch(console.log);
+          .catch((err) => {
+            Swal.fire({
+              title: '¡Error!',
+              text: error.response.data.message,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+            });
+          });
       }
     });
   };
@@ -196,6 +211,18 @@ const Productos = () => {
                     </option>
                   ))}
                 </select>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="" className="text-lg font-bold">
+                  Descripción
+                </label>
+                <textarea
+                  name="descripcion"
+                  id="descripcion"
+                  onChange={handleChange}
+                  value={producto.descripcion}
+                  className="px-2 py-3 border h-32 border-gray-500/30 outline-none focus:border-gray-500/50 rounded-lg"
+                ></textarea>
               </div>
 
               <div className="grid grid-cols-2 gap-2">

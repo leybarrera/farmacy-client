@@ -3,6 +3,7 @@ import storageUtils from '../../utils/storage.utils';
 import { useEffect } from 'react';
 import { ventaEndpoints } from '../../api/ventas.api';
 import Swal from 'sweetalert2';
+import { RiEmotionSadLine } from 'react-icons/ri';
 
 const Pagos = () => {
   const [pagos, setPagos] = useState([]);
@@ -118,7 +119,10 @@ const Pagos = () => {
           </div>
         </section>
       ) : (
-        <h1>No hay pagos</h1>
+        <div className="flex h-96 flex-col justify-center items-center">
+          <RiEmotionSadLine size={90} />
+          <p className="text-2xl font-bold">Aún no has hecho ni una compra.</p>
+        </div>
       )}
     </div>
   );

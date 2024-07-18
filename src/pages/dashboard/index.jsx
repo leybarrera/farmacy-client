@@ -4,7 +4,7 @@ import { MdDashboard } from 'react-icons/md';
 import { FaArrowLeft, FaList } from 'react-icons/fa';
 import { FaUserGroup } from 'react-icons/fa6';
 import { BiSolidCategory } from 'react-icons/bi';
-import { RiMoneyDollarBoxFill } from 'react-icons/ri';
+import { RiMoneyDollarBoxFill, RiStore2Fill } from 'react-icons/ri';
 import { useState } from 'react';
 import { TiThMenu } from 'react-icons/ti';
 
@@ -14,6 +14,9 @@ const Dashboard = () => {
   const toggleMenu = () => setShowMenu(!showMenu);
   const closeSession = () => {
     storageUtils.deleteData('usuario');
+    navigate('/');
+  };
+  const goToStore = () => {
     navigate('/');
   };
   return (
@@ -74,6 +77,14 @@ const Dashboard = () => {
             <RiMoneyDollarBoxFill />
             Ventas
           </NavLink>
+          <button
+            type="button"
+            className="flex items-center gap-2 hover:bg-primary lg:px-5 lg:py-2 px-10 py-5 transition-colors duration-500 hover:text-white rounded-md border-b border-gray-500/20 w-full lg:border-0"
+            onClick={goToStore}
+          >
+            <RiStore2Fill />
+            Tienda
+          </button>
         </ul>
 
         <div className="flex items-center flex-col lg:flex-row gap-3 py-5">
