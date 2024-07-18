@@ -1,43 +1,41 @@
-import { useEffect, useState } from "react";
-import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
-import { productoEndpoints } from "../../../api/productos.api";
-import Swal from "sweetalert2";
-import { categories } from "../../../mocks/data";
+import { useEffect, useState } from 'react';
+import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa';
+import { productoEndpoints } from '../../../api/productos.api';
+import Swal from 'sweetalert2';
+import { categories } from '../../../mocks/data';
+import { MdPhotoCamera } from 'react-icons/md';
+import { categoriaEndpoints } from '../../../api/categorias.api';
 const Productos = () => {
   const initialState = {
-    nombre: "",
-    precio: "",
-    imagen: "",
-    CategoryId: "",
+    nombre: '',
+    precio: '',
+    imagen: '',
+    CategoryId: '',
   };
   const [showRegister, setShowRegister] = useState(false);
   const [producto, setProducto] = useState(initialState);
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
 
+  const [fileInputState, setFileInputState] = useState(null);
+
   const toggleRegister = () => setShowRegister(!showRegister);
 
   const fetchCategorias = () => {
-    setCategorias(categories);
+    categoriaEndpoints
+      .getAllCategorias()
+      .then((res) => {
+        setCategorias(res.data.categorias);
+      })
+      .catch(console.log);
   };
   const fetchProductos = () => {
-    const productsDB = [];
-    for (let category of categories) {
-      const { products } = category;
-      if (products && products.length > 0) {
-        for (let product of products) {
-          productsDB.push({
-            id: product.id,
-            nombre: product.name,
-            precio: product.price,
-            CategoryId: category.id,
-            imagen: product.poster,
-          });
-        }
-      }
-    }
-
-    setProductos(productsDB);
+    productoEndpoints
+      .getAllProductos()
+      .then((res) => {
+        setProductos(res.data.productos);
+      })
+      .catch(console.log);
   };
 
   const handleChange = (e) => {
@@ -48,18 +46,29 @@ const Productos = () => {
     });
   };
 
+  const handleChangeInputFile = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setFileInputState(reader.result);
+    };
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(producto);
-    if (!Object.values(producto).some((current) => current == "")) {
+    if (fileInputState) {
+      producto.imagen = fileInputState;
+    }
+    if (!Object.values(producto).some((current) => current == '')) {
       try {
         productoEndpoints
           .register(producto)
           .then(() => {
             Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Producto registrado",
+              position: 'top-end',
+              icon: 'success',
+              title: 'Producto registrado',
               showConfirmButton: false,
               timer: 1500,
             });
@@ -71,27 +80,27 @@ const Productos = () => {
           .catch(console.log);
       } catch (error) {
         Swal.fire({
-          title: "¡Error!",
+          title: '¡Error!',
           text: error.response.data.message,
-          icon: "error",
-          confirmButtonText: "Ok",
+          icon: 'error',
+          confirmButtonText: 'Ok',
         });
       }
     } else {
       Swal.fire({
-        title: "¡Error!",
-        text: "Todos los campos son obligatorios",
-        icon: "error",
-        confirmButtonText: "Ok",
+        title: '¡Error!',
+        text: 'Todos los campos son obligatorios',
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
   };
 
   const deleteProduct = (id) => {
     Swal.fire({
-      title: "¿Estas seguro de eliminar a este producto?",
+      title: '¿Estas seguro de eliminar a este producto?',
       showDenyButton: true,
-      confirmButtonText: "Sí, Eliminar",
+      confirmButtonText: 'Sí, Eliminar',
       denyButtonText: `No eliminar`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
@@ -100,9 +109,9 @@ const Productos = () => {
           .borrar(id)
           .then(() => {
             Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Producto eliminado con éxito",
+              position: 'top-end',
+              icon: 'success',
+              title: 'Producto eliminado con éxito',
               showConfirmButton: false,
               timer: 1500,
             });
@@ -115,8 +124,8 @@ const Productos = () => {
   };
 
   const getNombreCategoria = (id) => {
-    const foundCategoria = categories.find((current) => current.id == id);
-    return foundCategoria.name;
+    const foundCategoria = categorias.find((current) => current.id == id);
+    return foundCategoria.nombre;
   };
 
   useEffect(() => {
@@ -124,20 +133,20 @@ const Productos = () => {
     fetchProductos();
   }, []);
   return (
-    <main className="w-4/5 mx-auto py-5">
+    <main className="w-full py-5">
       <h2 className="uppercase text-3xl font-bold text-center">
         Gestión de Productos
       </h2>
 
       <div className="flex flex-col gap-3 mt-5">
         {showRegister ? (
-          <div className="w-3/5 mx-auto">
+          <div className="w-full mx-auto flex lg:flex-row flex-col gap-2 h-auto">
             <form
               action=""
               className="w-full flex flex-col gap-3"
               onSubmit={handleSubmit}
             >
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2 ">
                 <div className="flex flex-col gap-1">
                   <label htmlFor="" className="text-lg font-bold">
                     Nombre
@@ -188,19 +197,6 @@ const Productos = () => {
                   ))}
                 </select>
               </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="" className="text-lg font-bold">
-                  Imagen
-                </label>
-                <input
-                  type="url"
-                  name="imagen"
-                  id="imagen"
-                  value={producto.imagen}
-                  onChange={handleChange}
-                  className="px-2 py-3 border border-gray-500/30 outline-none focus:border-gray-500/50 rounded-lg bg-white"
-                />
-              </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -218,9 +214,27 @@ const Productos = () => {
                 </button>
               </div>
             </form>
+            <div className="w-full flex flex-col gap-2 justify-center items-center">
+              <div className="w-full lg:h-[500px] h-[300px] relative flex items-center justify-center border-2 border-dotted border-gray-500/40 bg-white/80 text-gray-400">
+                {fileInputState ? (
+                  <img
+                    src={fileInputState}
+                    className="w-full h-full absolute object-cover"
+                  />
+                ) : (
+                  <MdPhotoCamera size={80} />
+                )}
+              </div>
+              <input
+                type="file"
+                name="image"
+                id="image"
+                onChange={handleChangeInputFile}
+              />
+            </div>
           </div>
         ) : (
-          <div className="w-full ">
+          <div className="w-full">
             <div className="flex justify-end">
               <button
                 className="flex items-center gap-2 px-5 py-2 bg-green-700 text-white mb-3 rounded-lg"
@@ -270,7 +284,7 @@ const Productos = () => {
                         {getNombreCategoria(currentProducto.CategoryId)}
                       </td>
                       <td className="px-6 py-4">
-                        <div className="relative w-10 h-10">
+                        <div className="relative w-40 h-40">
                           <img
                             src={currentProducto.imagen}
                             alt=""

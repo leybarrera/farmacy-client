@@ -1,5 +1,5 @@
-import { instance } from "./base.api";
-const model = "categorias";
+import { instance } from './base.api';
+const model = 'categorias';
 
 export const categoriaEndpoints = {
   getAllCategorias: () => {

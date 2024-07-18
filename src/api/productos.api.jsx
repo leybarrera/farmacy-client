@@ -1,9 +1,13 @@
-import { instance } from "./base.api";
-const model = "productos";
+import { instance } from './base.api';
+const model = 'productos';
 
 export const productoEndpoints = {
   getAllProductos: () => {
     return instance.get(`${model}`);
+  },
+
+  getByCategory: (id) => {
+    return instance.get(`${model}/category/${id}`);
   },
 
   register: (data) => {

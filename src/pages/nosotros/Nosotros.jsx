@@ -1,5 +1,5 @@
-import { Developer } from "../../components/Cards/index.cards";
-import { developers } from "../../mocks/data";
+import { Developer } from '../../components/Cards/index.cards';
+import { developers } from '../../mocks/data';
 
 const Nosotros = () => {
   return (
@@ -11,7 +11,7 @@ const Nosotros = () => {
           className="absolute w-full h-full object-cover"
         />
       </div>
-      <div className="w-3/5 mx-auto flex flex-col gap-2">
+      <div className="lg:w-3/5 w-full mx-auto flex flex-col gap-2">
         <h3 className="text-3xl uppercase font-bold text-center">
           Acerca de Nosotros
         </h3>
@@ -27,7 +27,7 @@ const Nosotros = () => {
         </div>
       </div>
       {/* Desarrolladores */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-3">
         {developers.map((developer) => (
           <Developer developer={developer} key={developer.id} />
         ))}

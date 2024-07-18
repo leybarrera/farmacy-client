@@ -1,5 +1,5 @@
-import { TbShoppingCartPlus } from "react-icons/tb";
-import PropTypes from "prop-types";
+import { TbShoppingCartPlus } from 'react-icons/tb';
+import PropTypes from 'prop-types';
 
 const Product = ({ product, addItemToCart }) => {
   return (
@@ -9,7 +9,7 @@ const Product = ({ product, addItemToCart }) => {
     >
       <header className="h-80 relative">
         <img
-          src={product.poster}
+          src={product.imagen}
           alt=""
           className="absolute w-full h-full object-cover top-0 left-0 block"
         />
@@ -17,14 +17,14 @@ const Product = ({ product, addItemToCart }) => {
       <div className="px-5 flex flex-col gap-3">
         <div className="flex justify-between items-center">
           <h3 className="text-center text-lg text-wrap py-3 font-bold">
-            {product.name}
+            {product.nombre}
           </h3>
 
           <span className="text-lg text-green-800 font-bold">
-            ${product.price.toFixed(2)}
+            ${product.precio.toFixed(2)}
           </span>
         </div>
-        <h5>{product.description}</h5>
+        <h5>{product.descripcion}</h5>
 
         <button
           className="flex items-center py-3 justify-center bg-blue-800 text-white gap-2 rounded-lg"

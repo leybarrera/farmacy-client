@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   FaEdit,
   FaEye,
@@ -6,19 +6,19 @@ import {
   FaPlus,
   FaTrash,
   FaTrashRestore,
-} from "react-icons/fa";
-import { usuarioEndpoints } from "../../../api/usuarios.api";
-import Swal from "sweetalert2";
+} from 'react-icons/fa';
+import { usuarioEndpoints } from '../../../api/usuarios.api';
+import Swal from 'sweetalert2';
 
 const Usuarios = () => {
   const initialState = {
-    nombre: "",
-    apellido: "",
-    email: "",
-    contraseña: "",
-    cedula: "",
-    fecha_nacimiento: "",
-    sexo: "",
+    nombre: '',
+    apellido: '',
+    email: '',
+    contraseña: '',
+    cedula: '',
+    fecha_nacimiento: '',
+    sexo: '',
   };
 
   const [user, setUser] = useState(initialState);
@@ -58,15 +58,15 @@ const Usuarios = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!Object.values(user).some((current) => current == "")) {
+    if (!Object.values(user).some((current) => current == '')) {
       try {
         usuarioEndpoints
           .register(user)
           .then(() => {
             Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Usuario registrado",
+              position: 'top-end',
+              icon: 'success',
+              title: 'Usuario registrado',
               showConfirmButton: false,
               timer: 1500,
             });
@@ -78,27 +78,27 @@ const Usuarios = () => {
           .catch(console.log);
       } catch (error) {
         Swal.fire({
-          title: "¡Error!",
+          title: '¡Error!',
           text: error.response.data.message,
-          icon: "error",
-          confirmButtonText: "Ok",
+          icon: 'error',
+          confirmButtonText: 'Ok',
         });
       }
     } else {
       Swal.fire({
-        title: "¡Error!",
-        text: "Todos los campos son obligatorios",
-        icon: "error",
-        confirmButtonText: "Ok",
+        title: '¡Error!',
+        text: 'Todos los campos son obligatorios',
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
   };
 
   const deleteUser = (id) => {
     Swal.fire({
-      title: "¿Estas seguro de eliminar a este usuario?",
+      title: '¿Estas seguro de eliminar a este usuario?',
       showDenyButton: true,
-      confirmButtonText: "Sí, Eliminar",
+      confirmButtonText: 'Sí, Eliminar',
       denyButtonText: `No eliminar`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
@@ -107,9 +107,9 @@ const Usuarios = () => {
           .borrar(id)
           .then(() => {
             Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Usuario eliminado con éxito",
+              position: 'top-end',
+              icon: 'success',
+              title: 'Usuario eliminado con éxito',
               showConfirmButton: false,
               timer: 1500,
             });
@@ -133,21 +133,21 @@ const Usuarios = () => {
     fetchUsers();
   }, []);
   return (
-    <main className="w-4/5 mx-auto py-5">
+    <main className="w-full py-5">
       <h2 className="uppercase text-3xl font-bold text-center">
         Gestión de Usuarios
       </h2>
 
       <div className="flex flex-col gap-3 mt-5">
         {showRegister ? (
-          <div className="w-3/5 mx-auto">
+          <div className="lg:w-4/5 w-full mx-auto">
             <form
               action=""
               className="w-full flex flex-col gap-3"
               method="post"
               onSubmit={handleSubmit}
             >
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-2">
                 <div className="flex flex-col gap-1">
                   <label htmlFor="" className="text-lg font-bold">
                     Nombre
@@ -175,7 +175,7 @@ const Usuarios = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-2">
                 <div className="flex flex-col gap-1">
                   <label htmlFor="" className="text-lg font-bold">
                     Correo electrónico
@@ -203,7 +203,7 @@ const Usuarios = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-2">
                 <div className="flex flex-col gap-1">
                   <label htmlFor="" className="text-lg font-bold">
                     Fecha de Nacimiento
@@ -223,7 +223,7 @@ const Usuarios = () => {
                   </label>
                   <div className="border border-gray-500/30 rounded-lg flex justify-between overflow-hidden focus-within:border-gray-500/50 bg-white">
                     <input
-                      type={showPasword ? "text" : "password"}
+                      type={showPasword ? 'text' : 'password'}
                       name="contraseña"
                       id="contraseña"
                       value={user.contraseña}
@@ -294,17 +294,17 @@ const Usuarios = () => {
             </form>
           </div>
         ) : (
-          <div className="w-full ">
-            <div className="flex justify-between">
+          <div className="w-full">
+            <div className="flex lg:justify-between flex-col lg:flex-row">
               <button
-                className="flex items-center gap-2 px-5 py-2 bg-orange-900 text-white mb-3 rounded-lg"
+                className="flex items-center gap-2 px-5 lg:py-2 py-3 bg-orange-900 text-white mb-3 rounded-lg lg:justify-start justify-center"
                 onClick={showUsersDeleted ? fetchUsers : fetchDeletedUsers}
               >
                 {showUsersDeleted ? <FaEyeSlash /> : <FaEye />}
-                {showUsersDeleted ? "Ocultar" : "Ver"} usuarios eliminados
+                {showUsersDeleted ? 'Ocultar' : 'Ver'} usuarios eliminados
               </button>
               <button
-                className="flex items-center gap-2 px-5 py-2 bg-green-700 text-white mb-3 rounded-lg"
+                className="flex items-center gap-2 px-5 lg:py-2 py-3 bg-green-700 text-white mb-3 rounded-lg lg:justify-start justify-center"
                 onClick={toggleRegister}
               >
                 <FaPlus />
@@ -356,7 +356,7 @@ const Usuarios = () => {
                       <td className="px-6 py-4 flex items-center gap-2">
                         <button
                           className={`px-3 py-2 border bg-yellow-600 text-white border-yellow-600 rounded-lg ${
-                            showUsersDeleted ? "hidden" : "block"
+                            showUsersDeleted ? 'hidden' : 'block'
                           }`}
                         >
                           <FaEdit />

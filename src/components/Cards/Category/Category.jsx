@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 const Category = ({ category, verProductos }) => {
   return (
     <article
@@ -7,13 +7,13 @@ const Category = ({ category, verProductos }) => {
     >
       <header className="h-52 relative">
         <img
-          src={category.poster}
+          src={category.imagen}
           alt=""
           className="absolute w-full h-full object-cover top-0 left-0 block"
         />
       </header>
       <h5 className="text-center text-lg text-wrap py-3 font-bold">
-        {category.name}
+        {category.nombre}
       </h5>
     </article>
   );

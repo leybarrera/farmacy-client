@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import storageUtils from "../../utils/storage.utils";
-import { ventaEndpoints } from "../../api/ventas.api";
-import { BsFillCartXFill } from "react-icons/bs";
-import { TbShoppingCartCancel, TbShoppingCartDollar } from "react-icons/tb";
-import { clearCart, getCart } from "../../redux/slices/cartSlice";
-import Swal from "sweetalert2";
-
+import { useDispatch, useSelector } from 'react-redux';
+import storageUtils from '../../utils/storage.utils';
+import { ventaEndpoints } from '../../api/ventas.api';
+import { BsFillCartXFill } from 'react-icons/bs';
+import { TbShoppingCartCancel, TbShoppingCartDollar } from 'react-icons/tb';
+import { clearCart, getCart } from '../../redux/slices/cartSlice';
+import Swal from 'sweetalert2';
 const Cart = ({ showCart, toggleCart }) => {
   const { shoppingCart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -14,18 +13,19 @@ const Cart = ({ showCart, toggleCart }) => {
     toggleCart();
   };
   const confirmarVenta = () => {
-    const user = storageUtils.getData("usuario");
+    const user = storageUtils.getData('usuario');
     ventaEndpoints
       .confirmarVenta(
         user.email,
-        user.nombre + " " + user.apellido,
+        user.nombre + ' ' + user.apellido,
+        user.id,
         shoppingCart
       )
       .then(() => {
         Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Compra realizada. Revisa tu email",
+          position: 'top-end',
+          icon: 'success',
+          title: 'Compra realizada. Revisa tu email',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -33,8 +33,8 @@ const Cart = ({ showCart, toggleCart }) => {
       })
       .catch((err) => {
         Swal.fire({
-          position: "center",
-          icon: "error",
+          position: 'center',
+          icon: 'error',
           title: err.response.data.message,
           showConfirmButton: false,
           timer: 1500,
@@ -45,8 +45,8 @@ const Cart = ({ showCart, toggleCart }) => {
   return (
     <aside
       className={`fixed top-0 ${
-        showCart ? "right-0" : "-right-full"
-      } h-full w-[20vw] z-50 bg-primary transition-all duration-300 overflow-y-scroll pb-10`}
+        showCart ? 'right-0' : '-right-full'
+      } h-full lg:w-[20vw] w-[70vw] z-50 bg-primary transition-all duration-300 overflow-y-scroll pb-10`}
     >
       <button
         className="absolute top-3 right-3 text-white text-xl"
@@ -62,11 +62,11 @@ const Cart = ({ showCart, toggleCart }) => {
                 key={cart.id}
                 className="flex flex-col py-5 border-b border-gray-500/20"
               >
-                <h3 className="text-white text-lg mb-4">{cart.name}</h3>
+                <h3 className="text-white text-lg mb-4">{cart.nombre}</h3>
                 <div className="flex gap-2">
                   <div className="relative w-32 h-40 rounded-lg overflow-hidden">
                     <img
-                      src={cart.poster}
+                      src={cart.imagen}
                       alt=""
                       className="absolute w-full h-full object-cover"
                     />
@@ -74,15 +74,15 @@ const Cart = ({ showCart, toggleCart }) => {
 
                   <div className="flex flex-col gap-3 text-white">
                     <h5>
-                      <strong>Precio: </strong>${cart.price}
+                      <strong>Precio: </strong>${cart.precio}
                     </h5>
                     <h5>
                       <strong>Cantidad: </strong>
                       {cart.cantidad}
                     </h5>
                     <h5>
-                      <strong>Subotaal: </strong>$
-                      {(cart.cantidad * cart.price).toFixed(2)}
+                      <strong>SubTotal: </strong>$
+                      {(cart.cantidad * cart.precio).toFixed(2)}
                     </h5>
                   </div>
                 </div>

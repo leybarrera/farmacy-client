@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { services } from "../../mocks/data";
+import { NavLink } from 'react-router-dom';
+import { services } from '../../mocks/data';
 
 const Servicios = () => {
   return (
@@ -9,7 +9,7 @@ const Servicios = () => {
       </h3>
 
       {/* Categorías */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3">
         {services.map((services) => (
           <article
             className="relative border border-gray-500/20 rounded-lg overflow-hidden bg-white cursor-pointer hover:-translate-y-2 transition-all duration-300 pb-10"
