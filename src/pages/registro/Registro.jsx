@@ -47,7 +47,14 @@ const Registro = () => {
               navigate('/login');
             }, 1500);
           })
-          .catch(console.log);
+          .catch((error) => {
+            Swal.fire({
+              title: '¡Error!',
+              text: error.response.data.message,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+            });
+          });
       } catch (error) {
         Swal.fire({
           title: '¡Error!',
