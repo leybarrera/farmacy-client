@@ -202,7 +202,7 @@ const Registro = () => {
                     type="radio"
                     name="sexo"
                     onChange={handleChange}
-                    value="fenale"
+                    value="female"
                   />
                   <label htmlFor="">Mujer</label>
                 </div>
