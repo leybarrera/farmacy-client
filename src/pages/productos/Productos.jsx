@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { categories } from '../../mocks/data';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { useDispatch } from 'react-redux';
 import { Product } from '../../components/Cards/index.cards';

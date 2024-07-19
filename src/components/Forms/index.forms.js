@@ -1,3 +1,5 @@
-import FormLogin from "./Login/Login";
+import FormLogin from './Login/Login';
+import FormProduct from './Product/Product';
+import FormRegister from './Register/Register';
 
-export { FormLogin };
+export { FormLogin, FormRegister, FormProduct };

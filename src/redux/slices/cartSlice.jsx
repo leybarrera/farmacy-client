@@ -32,7 +32,7 @@ export const cartSlice = createSlice({
       storageUtils.saveData('cart', state.shoppingCart);
     },
 
-    reduceItems: (state, action) => {
+    reduceItem: (state, action) => {
       const producto = action.payload;
       const indexProducto = state.shoppingCart.findIndex(
         (product) => product.id === producto.id
@@ -62,6 +62,6 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, getCart, clearCart, reduceItems, removeItem } =
+export const { addToCart, getCart, clearCart, reduceItem, removeItem } =
   cartSlice.actions;
 export default cartSlice.reducer;

@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types';
-import { FaMinus, FaPlus } from 'react-icons/fa';
 import { IoIosClose } from 'react-icons/io';
 import { TbShoppingCartMinus, TbShoppingCartPlus } from 'react-icons/tb';
 import { useDispatch } from 'react-redux';
 import {
   addToCart,
-  reduceItems,
+  reduceItem,
   removeItem,
 } from '../../redux/slices/cartSlice';
-const CartItems = ({ cart }) => {
+const CartItems = ({ product }) => {
   const dispatch = useDispatch();
 
   const addItem = (product) => {
     dispatch(addToCart(product));
   };
   const minusItem = (product) => {
-    dispatch(reduceItems(product));
+    dispatch(reduceItem(product));
   };
   const clearItem = (product) => {
     dispatch(removeItem(product));
@@ -23,19 +22,19 @@ const CartItems = ({ cart }) => {
 
   return (
     <div
-      key={cart.id}
+      key={product.id}
       className="flex flex-col py-5 border-b border-gray-500/20"
     >
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-white text-lg">{cart.nombre}</h3>
-        <button className=" text-white " onClick={() => clearItem(cart)}>
+        <h3 className="text-white text-lg">{product.nombre}</h3>
+        <button className=" text-white " onClick={() => clearItem(product)}>
           <IoIosClose size={30} />
         </button>
       </div>
       <div className="flex gap-2">
         <div className="relative w-32 h-40 rounded-lg overflow-hidden">
           <img
-            src={cart.imagen}
+            src={product.imagen}
             alt=""
             className="absolute w-full h-full object-cover"
           />
@@ -43,20 +42,20 @@ const CartItems = ({ cart }) => {
 
         <div className="flex flex-col gap-3 text-white">
           <h5>
-            <strong>Precio: </strong>${cart.precio}
+            <strong>Precio: </strong>${product.precio}
           </h5>
           <h5>
             <strong>SubTotal: </strong>$
-            {(cart.cantidad * cart.precio).toFixed(2)}
+            {(product.cantidad * product.precio).toFixed(2)}
           </h5>
           <div className="flex items-center gap-2">
             <button className="px-3 py-2 rounded-lg bg-neutral-800 border border-neutral-800">
-              <TbShoppingCartMinus onClick={() => minusItem(cart)} />
+              <TbShoppingCartMinus onClick={() => minusItem(product)} />
             </button>
-            <span>{cart.cantidad}</span>
+            <span>{product.cantidad}</span>
             <button
               className="px-3 py-2 rounded-lg bg-neutral-800 border border-neutral-800"
-              onClick={() => addItem(cart)}
+              onClick={() => addItem(product)}
             >
               <TbShoppingCartPlus />
             </button>
@@ -68,6 +67,6 @@ const CartItems = ({ cart }) => {
 };
 
 CartItems.propTypes = {
-  cart: PropTypes.any.isRequired,
+  product: PropTypes.any.isRequired,
 };
 export default CartItems;
