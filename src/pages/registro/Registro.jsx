@@ -29,6 +29,7 @@ const Registro = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(user);
     if (!Object.values(user).some((current) => current == '')) {
       try {
         usuarioEndpoints

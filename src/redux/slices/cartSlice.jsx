@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import storageUtils from "../../utils/storage.utils";
+import { createSlice } from '@reduxjs/toolkit';
+import storageUtils from '../../utils/storage.utils';
 
 const initialState = {
   shoppingCart: [],
 };
 
 export const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     getCart: (state, action) => {
@@ -29,15 +29,39 @@ export const cartSlice = createSlice({
           },
         ];
       }
-      storageUtils.saveData("cart", state.shoppingCart);
+      storageUtils.saveData('cart', state.shoppingCart);
+    },
+
+    reduceItems: (state, action) => {
+      const producto = action.payload;
+      const indexProducto = state.shoppingCart.findIndex(
+        (product) => product.id === producto.id
+      );
+      if (state.shoppingCart[indexProducto].cantidad - 1 == 0) {
+        const newShoppingCart = state.shoppingCart.filter(
+          (product) => product.id !== producto.id
+        );
+        state.shoppingCart = newShoppingCart;
+      } else {
+        state.shoppingCart[indexProducto].cantidad -= 1;
+      }
+    },
+
+    removeItem: (state, action) => {
+      const producto = action.payload;
+      const newItems = state.shoppingCart.filter(
+        (product) => product.id !== producto.id
+      );
+      state.shoppingCart = newItems;
     },
 
     clearCart: (state) => {
       state.shoppingCart = [];
-      storageUtils.deleteData("cart");
+      storageUtils.deleteData('cart');
     },
   },
 });
 
-export const { addToCart, getCart, clearCart } = cartSlice.actions;
+export const { addToCart, getCart, clearCart, reduceItems, removeItem } =
+  cartSlice.actions;
 export default cartSlice.reducer;

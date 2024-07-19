@@ -27,7 +27,7 @@ const Nosotros = () => {
         </div>
       </div>
       {/* Desarrolladores */}
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-3">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3">
         {developers.map((developer) => (
           <Developer developer={developer} key={developer.id} />
         ))}

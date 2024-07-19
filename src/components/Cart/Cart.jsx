@@ -3,8 +3,10 @@ import storageUtils from '../../utils/storage.utils';
 import { ventaEndpoints } from '../../api/ventas.api';
 import { BsFillCartXFill } from 'react-icons/bs';
 import { TbShoppingCartCancel, TbShoppingCartDollar } from 'react-icons/tb';
-import { clearCart, getCart } from '../../redux/slices/cartSlice';
+import { clearCart } from '../../redux/slices/cartSlice';
 import Swal from 'sweetalert2';
+import CartItems from '../Items/CartItems';
+import PropTypes from 'prop-types';
 const Cart = ({ showCart, toggleCart }) => {
   const { shoppingCart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -58,35 +60,7 @@ const Cart = ({ showCart, toggleCart }) => {
         {shoppingCart && shoppingCart.length > 0 ? (
           <>
             {shoppingCart.map((cart) => (
-              <div
-                key={cart.id}
-                className="flex flex-col py-5 border-b border-gray-500/20"
-              >
-                <h3 className="text-white text-lg mb-4">{cart.nombre}</h3>
-                <div className="flex gap-2">
-                  <div className="relative w-32 h-40 rounded-lg overflow-hidden">
-                    <img
-                      src={cart.imagen}
-                      alt=""
-                      className="absolute w-full h-full object-cover"
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-3 text-white">
-                    <h5>
-                      <strong>Precio: </strong>${cart.precio}
-                    </h5>
-                    <h5>
-                      <strong>Cantidad: </strong>
-                      {cart.cantidad}
-                    </h5>
-                    <h5>
-                      <strong>SubTotal: </strong>$
-                      {(cart.cantidad * cart.precio).toFixed(2)}
-                    </h5>
-                  </div>
-                </div>
-              </div>
+              <CartItems cart={cart} key={cart.id} />
             ))}
 
             <button
@@ -113,6 +87,11 @@ const Cart = ({ showCart, toggleCart }) => {
       </div>
     </aside>
   );
+};
+
+Cart.propTypes = {
+  showCart: PropTypes.bool.isRequired,
+  toggleCart: PropTypes.func.isRequired,
 };
 
 export default Cart;

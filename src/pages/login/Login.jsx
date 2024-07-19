@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getCart } from '../../redux/slices/cartSlice.jsx';
 import { FormLogin } from '../../components/Forms/index.forms.js';
-import Modal from '../../components/modal/Modal.jsx';
+import Modal from '../../components/Modal/Modal.jsx';
 import { useState } from 'react';
 
 const Login = () => {
@@ -16,9 +16,10 @@ const Login = () => {
     dispatch(getCart());
   }, []);
 
-  return (
+  return showModal ? (
+    <Modal toggleModal={toggleModal} />
+  ) : (
     <section className="py-10 lg:w-3/5 mx-auto flex flex-col gap-5 items-center lg:border lg:border-white rounded-lg mt-4 bg-opacity-80 bg-dark">
-      {showModal && <Modal toggleModal={toggleModal} />}
       <div className="relative lg:w-52 lg:h-52 h-32 w-32">
         <img
           src="login.webp"
