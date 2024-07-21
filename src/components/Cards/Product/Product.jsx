@@ -3,14 +3,22 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import storageUtils from '../../../utils/storage.utils';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../../redux/slices/cartSlice';
 
-const Product = ({ product, addItemToCart }) => {
+const Product = ({ product }) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const dispatch = useDispatch();
   const isLogged = () => {
     const usuario = storageUtils.getData('usuario');
     if (usuario) {
       setIsAdmin(usuario.rol === 'admin');
     }
+  };
+
+  const addItemToCart = (producto) => {
+    console.log(producto);
+    dispatch(addToCart(producto));
   };
 
   useEffect(() => {

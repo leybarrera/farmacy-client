@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addToCart } from '../../redux/slices/cartSlice';
-import { useDispatch } from 'react-redux';
 import { Product } from '../../components/Cards/index.cards';
 import { FaArrowLeft } from 'react-icons/fa';
 import { RiEmotionSadLine } from 'react-icons/ri';
@@ -9,14 +7,9 @@ import { useEffect } from 'react';
 import { productoEndpoints } from '../../api/productos.api';
 
 const ListarProductos = () => {
-  const [products, setProducts] = useState([]);
   const { id } = useParams();
-  const dispatch = useDispatch();
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
-  const addItemToCart = (product) => {
-    dispatch(addToCart(product));
-  };
 
   const back = () => {
     navigate('/');
@@ -43,11 +36,7 @@ const ListarProductos = () => {
       {products && products.length > 0 ? (
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-3">
           {products.map((product) => (
-            <Product
-              product={product}
-              addItemToCart={addItemToCart}
-              key={product.id}
-            />
+            <Product product={product} key={product.id} />
           ))}
         </div>
       ) : (
