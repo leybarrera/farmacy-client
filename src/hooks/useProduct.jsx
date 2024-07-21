@@ -138,8 +138,8 @@ const useProduct = () => {
   };
 
   useEffect(() => {
-    fetchCategorias();
     fetchProductos();
+    fetchCategorias();
   }, []);
 
   return {
