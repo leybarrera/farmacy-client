@@ -13,11 +13,9 @@ const useProduct = () => {
     CategoryId: '',
   };
   const [producto, setProducto] = useState(initialState);
-  const [showRegister, setShowRegister] = useState(false);
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
 
-  const toggleRegister = () => setShowRegister(!showRegister);
   const [fileInputState, setFileInputState] = useState(null);
 
   const fetchCategorias = () => {
@@ -149,12 +147,10 @@ const useProduct = () => {
     handleChange,
     handleChangeInputFile,
     handleSubmit,
-    showRegister,
     fileInputState,
     getNombreCategoria,
     deleteProduct,
     productos,
-    toggleRegister,
     categorias,
   };
 };

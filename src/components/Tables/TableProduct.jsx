@@ -2,9 +2,8 @@ import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa';
 import useProduct from '../../hooks/useProduct';
 import { RiEmotionSadLine } from 'react-icons/ri';
 
-const TableProduct = () => {
-  const { productos, getNombreCategoria, deleteProduct, toggleRegister } =
-    useProduct();
+const TableProduct = ({ toggleRegister }) => {
+  const { productos, getNombreCategoria, deleteProduct } = useProduct();
   return productos && productos.length > 0 ? (
     <div className="w-full">
       <div className="flex justify-end">

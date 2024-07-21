@@ -1,7 +1,7 @@
 import { MdPhotoCamera } from 'react-icons/md';
 import useProduct from '../../../hooks/useProduct';
 
-const FormProduct = () => {
+const FormProduct = ({ toggleRegister }) => {
   const {
     handleSubmit,
     handleChange,
@@ -9,7 +9,6 @@ const FormProduct = () => {
     handleChangeInputFile,
     producto,
     categorias,
-    toggleRegister,
   } = useProduct();
   return (
     <div className="w-full mx-auto flex lg:flex-row flex-col gap-2 h-auto">
