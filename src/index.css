@@ -9,7 +9,7 @@ body {
 }
 
 body {
-  background-image: url('/pasillo.webp');
+  background-image: url('/public/pasillo.webp');
   background-size: cover;
   background-position: center;
 }

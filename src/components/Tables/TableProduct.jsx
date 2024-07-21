@@ -1,10 +1,11 @@
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa';
 import useProduct from '../../hooks/useProduct';
+import { RiEmotionSadLine } from 'react-icons/ri';
 
 const TableProduct = () => {
   const { productos, getNombreCategoria, deleteProduct, toggleRegister } =
     useProduct();
-  return (
+  return productos && productos.length > 0 ? (
     <div className="w-full">
       <div className="flex justify-end">
         <button
@@ -80,6 +81,12 @@ const TableProduct = () => {
         </table>
       </div>
     </div>
+  ) : (
+    <div className="flex h-96 flex-col justify-center items-center">
+      <RiEmotionSadLine size={90} />
+      <p className="text-2xl font-bold">No hay productos agregados.</p>
+    </div>
   );
 };
+
 export default TableProduct;

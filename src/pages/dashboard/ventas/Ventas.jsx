@@ -5,6 +5,7 @@ import { ventaEndpoints } from '../../../api/ventas.api';
 import Swal from 'sweetalert2';
 import { usuarioEndpoints } from '../../../api/usuarios.api';
 import { MdCancel } from 'react-icons/md';
+import { RiEmotionSadLine } from 'react-icons/ri';
 
 const Ventas = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -195,7 +196,10 @@ const Ventas = () => {
           </div>
         </div>
       ) : (
-        <h1>No hay ventas</h1>
+        <div className="flex h-96 flex-col justify-center items-center">
+          <RiEmotionSadLine size={90} />
+          <p className="text-2xl font-bold">No hay ventas asignadas.</p>
+        </div>
       )}
     </main>
   );

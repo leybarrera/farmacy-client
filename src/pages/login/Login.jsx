@@ -40,7 +40,7 @@ const Login = () => {
 
         <div className="flex flex-col w-full gap-3">
           <button type="button" className="text-blue-700" onClick={toggleModal}>
-            ¿Olvidate tu contraseña?
+            ¿Olvidaste tu contraseña?
           </button>
           <NavLink
             to="/registro"
